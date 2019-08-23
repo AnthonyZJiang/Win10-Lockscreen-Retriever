@@ -6,34 +6,27 @@ namespace LockscreenWallpaperRetriever
 {
     public class ImageCopier
     {
-        private readonly IReadOnlyList<FileInfo> _imageFileInfos;
-        private readonly Checksum _checksum;
+        private readonly IEnumerable<FileInfo> _imageToCopy;
+        private readonly string _destinationFolder;
 
-        public ImageCopier(string imageFolder, IReadOnlyList<FileInfo> imageFileInfos)
+        public ImageCopier(IEnumerable<FileInfo> imageToCopy, string destination)
         {
-            ImageFolder = imageFolder;
-            _imageFileInfos = imageFileInfos;
-            _checksum = new Checksum(this);
+            _destinationFolder = destination;
+            _imageToCopy = imageToCopy;
         }
-
-        public string ImageFolder { get; }
 
         public void CopyMissingImages()
         {
-            var missingImages = new MissingImage(_checksum, _imageFileInfos);
-
-            foreach (var missingImage in missingImages.MissingImageFileInfos)
+            foreach (var image in _imageToCopy)
             {
-                var filename = GetCopyToFileName(missingImage);
-                missingImage.CopyTo(filename, true);
+                var filename = GetCopyToFileName(image);
+                image.CopyTo(filename, true);
             }
-
-            _checksum.AppendChecksumToFile(missingImages.MissingImageChecksum.ToArray());
         }
 
         private string GetCopyToFileName(FileSystemInfo fileInfo)
         {
-            return Path.Combine(ImageFolder, fileInfo.Name + ".jpg");
+            return Path.Combine(_destinationFolder, fileInfo.Name + ".jpg");
         }
     }
 }

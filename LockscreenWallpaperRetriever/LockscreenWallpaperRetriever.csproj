@@ -85,6 +85,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="NewImageExtractor.cs" />
+    <Compile Include="SilentRetriever.cs" />
     <Page Include="Locksreen Retriever.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -93,15 +95,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Checksum.cs" />
+    <Compile Include="Checksum\Checksum.cs" />
+    <Compile Include="Checksum\ChecksumFile.cs" />
+    <Compile Include="WallpaperFolderManager.cs" />
     <Compile Include="ImageCopier.cs" />
-    <Compile Include="ImageFinder.cs" />
+    <Compile Include="BingImageFinder.cs" />
     <Compile Include="Locksreen Retriever.xaml.cs">
       <DependentUpon>Locksreen Retriever.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MissingImage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

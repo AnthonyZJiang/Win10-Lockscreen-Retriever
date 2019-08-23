@@ -29,11 +29,8 @@ namespace LockscreenWallpaperRetriever
             {
                 return;
             }
-
-            var imageFinder = new ImageFinder();
-            var imageFileInfos = imageFinder.Find();
-            var imageCopier = new ImageCopier(Properties.Settings.Default.ImageFolder, imageFileInfos);
-            imageCopier.CopyMissingImages();
+            var retriever = new SilentRetriever(Properties.Settings.Default.ImageFolder);
+            retriever.Retrieve();
         }
 
         private void ParseCmdArgs()
